@@ -20,7 +20,7 @@ load_dotenv()
 pp = PrettyPrinter(indent=4)
 
 API_KEY = os.getenv('API_KEY')
-API_URL = 'http://api.openweathermap.org/data/2.5/weather'
+API_URL = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}'
 
 
 ################################################################################
