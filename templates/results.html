@@ -7,7 +7,7 @@
         server 
     #}
     <h1>Weather in {{ city }}</h1>
-    <p>on [TODAYS_DATE (e.g. Saturday, August 29, 2020)]</p>
+    <p>on {{ date.strftime('%A, %B, %d, %Y') }}</p>
     
     {#
         TODO: Add the temperature, description, humidity, wind speed, sunrise,
