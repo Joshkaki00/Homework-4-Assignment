@@ -6,7 +6,7 @@
     <p>{{ date.strftime('%A, %B, %d, %Y') }}</p>
 
     <p>
-        It is {{ city1_info.temp - city2_info.temp }} {{ units_letter }}
+        It is {{ (city1_info.temp - city2_info.temp) | round(2) }} {{ units_letter }}
         {% if city1_info.temp > city2_info.temp %}
             WARMER
         {% else %}
@@ -17,7 +17,7 @@
 
     <p>
         The humidity in {{ city1_info.city }} is 
-        {{ abs_humidity_difference }}%
+        {{ abs_humidity_difference | round(2) }}%
         {% if city1_info.humidity > city2_info.humidity %}
             GREATER
         {% else %}
@@ -28,8 +28,7 @@
 
     <p>
         The wind speed in {{ city1_info.city }} is 
-        {{ abs_wind_speed_difference }}
-        {{ units_letter }}
+        {{ abs_wind_speed_difference | round(2)}} {{ units_letter}}
         {% if city1_info.wind_speed > city2_info.wind_speed %}
             GREATER
         {% else %}
@@ -40,7 +39,7 @@
 
     <p>
         The sun sets in {{ city1_info.city }}
-        {{ abs_sunset_difference }} hours
+        {{ abs_sunset_difference | round(2) }} hours
         {% if city1_info.sunset < city2_info.sunset %}
             EARLIER
         {% else %}
