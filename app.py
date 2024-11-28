@@ -37,7 +37,7 @@ def home():
     return render_template('home.html', **context)
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
     return render_template('404.html', message="Oops! The page you're looking for doesn't exist."), 404
 
 def get_letter_for_units(units):
