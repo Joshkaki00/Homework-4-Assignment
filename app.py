@@ -67,8 +67,8 @@ def results():
     # function.
     context = {
         'date': datetime.now(),
-        'city': '',
-        'description': '',
+        'city': result_json.get('name', ''),
+        'description': result_json['weather'][0]['description'] if 'weather' in result_json else '',
         'temp': '',
         'humidity': '',
         'wind_speed': '',
