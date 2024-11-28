@@ -28,7 +28,7 @@
 
     <p>
         The wind speed in {{ city1_info.city }} is 
-        {{ abs(city1_info.wind_speed - city2_info.wind_speed) }}
+        {{ abs_wind_speed_difference }}
         {{ units_letter }}
         {% if city1_info.wind_speed > city2_info.wind_speed %}
             GREATER
@@ -40,7 +40,7 @@
 
     <p>
         The sun sets in {{ city1_info.city }}
-        {{ abs(city1_info.sunset - city2_info.sunset).total_seconds() / 3600 | round(2) }} hours
+        {{ abs_sunset_difference }} hours
         {% if city1_info.sunset < city2_info.sunset %}
             EARLIER
         {% else %}

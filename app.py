@@ -109,13 +109,17 @@ def comparison_results():
 
     # Calculate absolute differences
     abs_humidity_difference = abs(city1_info['humidity'] - city2_info['humidity'])
+    abs_wind_speed_difference = abs(city1_info['wind_speed'] - city2_info['wind_speed'])
+    abs_sunset_difference = abs((city1_info['sunset'] - city2_info['sunset']).total_seconds() / 3600) if city1_info['sunset'] and city2_info['sunset'] else None
 
     context = {
         'city1_info': city1_info,
         'city2_info': city2_info,
         'units_letter': get_letter_for_units(units),
         'date': datetime.now(),
-        'abs_humidity_difference': abs_humidity_difference
+        'abs_humidity_difference': abs_humidity_difference,
+        'abs_wind_speed_difference': abs_wind_speed_difference,
+        'abs_sunset_difference': abs_sunset_difference
     }
 
     return render_template('comparison_results.html', **context)
