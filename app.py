@@ -90,6 +90,17 @@ def comparison_results():
     # TODO: Make 2 API calls, one for each city. HINT: You may want to write a 
     # helper function for this!
 
+    def fetch_weather(city, units):
+        params = {
+            'q': city,
+            'appid': API_KEY,
+            'units': units}
+        response = requests.get(API_URL, params=params)
+        return response.json()
+
+    city1_data = fetch_weather(city1, units)
+    city2_data = fetch_weather(city2, units)
+
 
     # TODO: Pass the information for both cities in the context. Make sure to
     # pass info for the temperature, humidity, wind speed, and sunset time!
