@@ -39,7 +39,14 @@
     </p>
 
     <p>
-        The sun sets in [CITY1] [HOURS] hours [EARLIER/LATER] than in [CITY2].
+        The sun sets in {{ city1_info.city }}
+        {{ abs(city1_info.sunset - city2_info.sunset).total_seconds() / 3600 | round(2) }} hours
+        {% if city1_info.sunset < city2_info.sunset %}
+            EARLIER
+        {% else %}
+            LATER
+        {% endif %}
+        than in {{ city2_info.city }}.
     </p>
     
 </section>
