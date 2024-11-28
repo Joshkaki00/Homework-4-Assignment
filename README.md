@@ -12,7 +12,7 @@ This is a Flask-based web application that allows users to get current weather c
 
 2. Create a virtual environment and activate it:
     ```zsh
-    python3 -m venv venv
+    python3 -m venv venv/
     source venv/bin/activate
     ```
 
