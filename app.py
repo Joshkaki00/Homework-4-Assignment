@@ -43,10 +43,8 @@ def get_letter_for_units(units):
 @app.route('/results')
 def results():
     """Displays results for current weather conditions."""
-    # TODO: Use 'request.args' to retrieve the city & units from the query
-    # parameters.
     city = request.args.get('city', '')
-    units = request.args.get('units', 'metric')
+    units = request.args.get('units', 'imperial')
 
     params = {
         'q': city,
@@ -57,7 +55,7 @@ def results():
     result_json = requests.get(API_URL, params=params).json()
 
     # Uncomment the line below to see the results of the API call!
-    # pp.pprint(result_json)
+    pp.pprint(result_json)
 
     # TODO: Replace the empty variables below with their appropriate values.
     # You'll need to retrieve these from the result_json object above.
@@ -69,11 +67,11 @@ def results():
         'date': datetime.now(),
         'city': result_json.get('name', ''),
         'description': result_json['weather'][0]['description'] if 'weather' in result_json else '',
-        'temp': '',
-        'humidity': '',
-        'wind_speed': '',
-        'sunrise': '',
-        'sunset': '',
+        'temp': result_json['main']['temp'] if 'main' in result_json else '',
+        'humidity': result_json['main']['humidity'] if 'main' in result_json else '',
+        'wind_speed': result_json['wind']['speed'] if 'wind' in result_json else '',
+        'sunrise': result_json['sys']['sunrise'] if 'sys' in result_json else '',
+        'sunset': result_json['sys']['sunset'] if 'sys' in result_json else '',
         'units_letter': get_letter_for_units(units)
     }
 
@@ -85,9 +83,9 @@ def comparison_results():
     """Displays the relative weather for 2 different cities."""
     # TODO: Use 'request.args' to retrieve the cities & units from the query
     # parameters.
-    city1 = ''
-    city2 = ''
-    units = ''
+    city1 = request.args.get('city1', '')
+    city2 = request.args.get('city2', '')
+    units = request.args.get('units', 'imperial')
 
     # TODO: Make 2 API calls, one for each city. HINT: You may want to write a 
     # helper function for this!
