@@ -37,7 +37,7 @@ def home():
     return render_template('home.html', **context)
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
     return render_template('404.html', message="Oops! The page you're looking for doesn't exist."), 404
 
 def get_letter_for_units(units):
@@ -72,7 +72,6 @@ def results():
         'sunrise': datetime.fromtimestamp(result_json['sys']['sunrise']) if 'sys' in result_json and 'sunrise' in result_json['sys'] else '',
         'sunset': datetime.fromtimestamp(result_json['sys']['sunset']) if 'sys' in result_json and 'sunset' in result_json['sys'] else '',
         'units_letter': get_letter_for_units(units),
-        'icon': result_json['weather'][0]['icon'] if 'weather' in result_json else ''  # Add the icon
     }
 
     return render_template('results.html', **context)
