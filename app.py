@@ -122,7 +122,9 @@ def comparison_results():
     # HINT: It may be useful to create 2 new dictionaries, `city1_info` and 
     # `city2_info`, to organize the data.
     context = {
-
+        'city1_info': city1_info,
+        'city2_info': city2_info,
+        'units_letter': get_letter_for_units(units)
     }
 
     return render_template('comparison_results.html', **context)
