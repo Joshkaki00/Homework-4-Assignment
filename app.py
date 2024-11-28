@@ -101,6 +101,21 @@ def comparison_results():
     city1_data = fetch_weather(city1, units)
     city2_data = fetch_weather(city2, units)
 
+    city1_info = {
+        'city': city1_data.get('name', ''),
+        'temp': city1_data['main']['temp'] if 'main' in city1_data else '',
+        'humidity': city1_data['main']['humidity'] if 'main' in city1_data else '',
+        'wind_speed': city1_data['wind']['speed'] if 'wind' in city1_data else '',
+        'sunset': datetime.fromtimestamp(city1_data['sys']['sunset']) if 'sys' in city1_data else ''
+    }
+
+    city2_info = {
+        'city': city2_data.get('name', ''),
+        'temp': city2_data['main']['temp'] if 'main' in city2_data else '',
+        'humidity': city2_data['main']['humidity'] if 'main' in city2_data else '',
+        'wind_speed': city2_data['wind']['speed'] if 'wind' in city2_data else '',
+        'sunset': datetime.fromtimestamp(city2_data['sys']['sunset']) if 'sys' in city2_data else ''
+    }
 
     # TODO: Pass the information for both cities in the context. Make sure to
     # pass info for the temperature, humidity, wind speed, and sunset time!
