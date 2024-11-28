@@ -27,7 +27,15 @@
     </p>
 
     <p>
-        The wind speed in [CITY1] is [AMOUNT] [GREATER/LESS] than in [CITY2].
+        The wind speed in {{ city1_info.city }} is 
+        {{ abs(city1_info.wind_speed - city2_info.wind_speed) }}
+        {{ units_letter }}
+        {% if city1_info.wind_speed > city2_info.wind_speed %}
+            GREATER
+        {% else %}
+            LESS
+        {% endif %}
+        than in {{ city2_info.city }}.
     </p>
 
     <p>
