@@ -54,8 +54,9 @@ def results():
 
     result_json = requests.get(API_URL, params=params).json()
 
-    # Uncomment the line below to see the results of the API call!
-    pp.pprint(result_json)
+    # Error handling for invalid city or API failure
+    if result_json.get('cod') != 200:
+        return render_template('404.html', message="City not found"), 404
 
     context = {
         'date': datetime.now(),
@@ -66,7 +67,8 @@ def results():
         'wind_speed': result_json['wind']['speed'] if 'wind' in result_json else '',
         'sunrise': datetime.fromtimestamp(result_json['sys']['sunrise']) if 'sys' in result_json and 'sunrise' in result_json['sys'] else '',
         'sunset': datetime.fromtimestamp(result_json['sys']['sunset']) if 'sys' in result_json and 'sunset' in result_json['sys'] else '',
-        'units_letter': get_letter_for_units(units)
+        'units_letter': get_letter_for_units(units),
+        'icon': result_json['weather'][0]['icon'] if 'weather' in result_json else ''  # Add the icon
     }
 
     return render_template('results.html', **context)
@@ -92,19 +94,21 @@ def comparison_results():
     city2_data = fetch_weather(city2, units)
 
     city1_info = {
-        'city': city1_data.get('name', ''),
-        'temp': city1_data['main']['temp'] if 'main' in city1_data else '',
-        'humidity': city1_data['main']['humidity'] if 'main' in city1_data else '',
-        'wind_speed': city1_data['wind']['speed'] if 'wind' in city1_data else '',
-        'sunset': datetime.fromtimestamp(city1_data['sys']['sunset']) if 'sys' in city1_data else ''
+    'city': city1_data.get('name', ''),
+    'temp': city1_data['main']['temp'] if 'main' in city1_data else '',
+    'humidity': city1_data['main']['humidity'] if 'main' in city1_data else '',
+    'wind_speed': city1_data['wind']['speed'] if 'wind' in city1_data else '',
+    'sunset': datetime.fromtimestamp(city1_data['sys']['sunset']) if 'sys' in city1_data else '',
+    'icon': city1_data['weather'][0]['icon'] if 'weather' in city1_data else ''  # Add the icon
     }
 
     city2_info = {
-        'city': city2_data.get('name', ''),
-        'temp': city2_data['main']['temp'] if 'main' in city2_data else '',
-        'humidity': city2_data['main']['humidity'] if 'main' in city2_data else '',
-        'wind_speed': city2_data['wind']['speed'] if 'wind' in city2_data else '',
-        'sunset': datetime.fromtimestamp(city2_data['sys']['sunset']) if 'sys' in city2_data else ''
+    'city': city2_data.get('name', ''),
+    'temp': city2_data['main']['temp'] if 'main' in city2_data else '',
+    'humidity': city2_data['main']['humidity'] if 'main' in city2_data else '',
+    'wind_speed': city2_data['wind']['speed'] if 'wind' in city2_data else '',
+    'sunset': datetime.fromtimestamp(city2_data['sys']['sunset']) if 'sys' in city2_data else '',
+    'icon': city2_data['weather'][0]['icon'] if 'weather' in city2_data else ''  # Add the icon
     }
 
     # Calculate absolute differences
