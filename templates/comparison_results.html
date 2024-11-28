@@ -16,7 +16,14 @@
     </p>
 
     <p>
-        The humidity in {{ city1_info.city }} is [AMOUNT] [GREATER/LESS] than in [CITY2].
+        The humidity in {{ city1_info.city }} is 
+        {{ abs(city1_info.humidity - city2_info.humidity) }}%
+        {% if city1_info.humidity > city2_info.humidity %}
+            GREATER
+        {% else %}
+            LESS
+        {% endif %}
+        than in {{ city2_info.city }}.
     </p>
 
     <p>
