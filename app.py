@@ -70,8 +70,8 @@ def results():
         'temp': result_json['main']['temp'] if 'main' in result_json else '',
         'humidity': result_json['main']['humidity'] if 'main' in result_json else '',
         'wind_speed': result_json['wind']['speed'] if 'wind' in result_json else '',
-        'sunrise': result_json['sys']['sunrise'] if 'sys' in result_json else '',
-        'sunset': result_json['sys']['sunset'] if 'sys' in result_json else '',
+        'sunrise': datetime.fromtimestamp(result_json['sys']['sunrise']) if 'sys' in result_json and 'sunrise' in result_json['sys'] else '',
+        'sunset': datetime.fromtimestamp(result_json['sys'], ['sunset']) if 'sys' in result_json and 'sunset' in result_json['sys'] else '',
         'units_letter': get_letter_for_units(units)
     }
 
@@ -124,7 +124,8 @@ def comparison_results():
     context = {
         'city1_info': city1_info,
         'city2_info': city2_info,
-        'units_letter': get_letter_for_units(units)
+        'units_letter': get_letter_for_units(units),
+        'date': datetime.now()
     }
 
     return render_template('comparison_results.html', **context)
@@ -132,4 +133,4 @@ def comparison_results():
 
 if __name__ == '__main__':
     app.config['ENV'] = 'development'
-    app.run(debug=True)
+    app.run(debug=True, port=3000)
