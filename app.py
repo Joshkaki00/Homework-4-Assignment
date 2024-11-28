@@ -57,12 +57,6 @@ def results():
     # Uncomment the line below to see the results of the API call!
     pp.pprint(result_json)
 
-    # TODO: Replace the empty variables below with their appropriate values.
-    # You'll need to retrieve these from the result_json object above.
-
-    # For the sunrise & sunset variables, I would recommend to turn them into
-    # datetime objects. You can do so using the `datetime.fromtimestamp()` 
-    # function.
     context = {
         'date': datetime.now(),
         'city': result_json.get('name', ''),
@@ -81,14 +75,10 @@ def results():
 @app.route('/comparison_results')
 def comparison_results():
     """Displays the relative weather for 2 different cities."""
-    # TODO: Use 'request.args' to retrieve the cities & units from the query
-    # parameters.
+
     city1 = request.args.get('city1', '')
     city2 = request.args.get('city2', '')
     units = request.args.get('units', 'imperial')
-
-    # TODO: Make 2 API calls, one for each city. HINT: You may want to write a 
-    # helper function for this!
 
     def fetch_weather(city, units):
         params = {
@@ -117,15 +107,15 @@ def comparison_results():
         'sunset': datetime.fromtimestamp(city2_data['sys']['sunset']) if 'sys' in city2_data else ''
     }
 
-    # TODO: Pass the information for both cities in the context. Make sure to
-    # pass info for the temperature, humidity, wind speed, and sunset time!
-    # HINT: It may be useful to create 2 new dictionaries, `city1_info` and 
-    # `city2_info`, to organize the data.
+    # Calculate absolute differences
+    abs_humidity_difference = abs(city1_info['humidity'] - city2_info['humidity'])
+
     context = {
         'city1_info': city1_info,
         'city2_info': city2_info,
         'units_letter': get_letter_for_units(units),
-        'date': datetime.now()
+        'date': datetime.now(),
+        'abs_humidity_difference': abs_humidity_difference
     }
 
     return render_template('comparison_results.html', **context)
