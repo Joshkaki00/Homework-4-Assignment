@@ -37,7 +37,7 @@ def home():
     return render_template('home.html', **context)
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(e):
     return render_template('404.html', message="Oops! The page you're looking for doesn't exist."), 404
 
 def get_letter_for_units(units):
@@ -103,7 +103,6 @@ def comparison_results():
     'humidity': city1_data['main']['humidity'] if 'main' in city1_data else '',
     'wind_speed': city1_data['wind']['speed'] if 'wind' in city1_data else '',
     'sunset': datetime.fromtimestamp(city1_data['sys']['sunset']) if 'sys' in city1_data else '',
-    'icon': city1_data['weather'][0]['icon'] if 'weather' in city1_data else ''  # Add the icon
     }
 
     city2_info = {
@@ -112,7 +111,6 @@ def comparison_results():
     'humidity': city2_data['main']['humidity'] if 'main' in city2_data else '',
     'wind_speed': city2_data['wind']['speed'] if 'wind' in city2_data else '',
     'sunset': datetime.fromtimestamp(city2_data['sys']['sunset']) if 'sys' in city2_data else '',
-    'icon': city2_data['weather'][0]['icon'] if 'weather' in city2_data else ''  # Add the icon
     }
 
     # Calculate absolute differences
