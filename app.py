@@ -71,7 +71,7 @@ def results():
         'humidity': result_json['main']['humidity'] if 'main' in result_json else '',
         'wind_speed': result_json['wind']['speed'] if 'wind' in result_json else '',
         'sunrise': datetime.fromtimestamp(result_json['sys']['sunrise']) if 'sys' in result_json and 'sunrise' in result_json['sys'] else '',
-        'sunset': datetime.fromtimestamp(result_json['sys'], ['sunset']) if 'sys' in result_json and 'sunset' in result_json['sys'] else '',
+        'sunset': datetime.fromtimestamp(result_json['sys']['sunset']) if 'sys' in result_json and 'sunset' in result_json['sys'] else '',
         'units_letter': get_letter_for_units(units)
     }
 
